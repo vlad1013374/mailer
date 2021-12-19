@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>PHPMAILER</title>
+   
+</head>
+<body>
+<form method="post" id="form" onsubmit="send(event, 'send.php')">
+ 	<p>Имя</p>
+ 	<input placeholder="Представьтесь" name="name" type="text"  >
+ 	<p>Email</p>
+ 	<input placeholder="Укажите почту" name="email" type="text" >
+ 	<p>Сообщение</p>
+ 	<textarea name="text"></textarea>
+ 	<p><input value="Отправить" type="submit"></p>
+</form>
+    <script>
+    function send(event, php){
+        console.log("Отправка запроса");
+        event.preventDefault ? event.preventDefault() : event.returnValue = false;
+        var req = new XMLHttpRequest();
+        req.open('POST', php, true);
+        req.onload = function() {
+            if (req.status >= 200 && req.status < 400) {
+                json = JSON.parse(this.response); // Для наилучшего браузера на планете
+                console.log(json);
+                
+                
+                
+            
+            } else {alert("Ошибка сервера. Номер: "+req.status);}}; 
+
+        req.onerror = function() {alert("Ошибка отправки запроса");};
+        req.send(new FormData(event.target));
+    }
+
+    </script>
+</body>
+
+</html>
+
+<!-- -->
